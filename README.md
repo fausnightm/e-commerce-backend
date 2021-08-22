@@ -27,7 +27,7 @@ Once you have cloned the code from Github you will need to npm install all of yo
 
 [PostAndDelete](https://drive.google.com/file/d/1metn93rgD-ueiO-Svs6WS4M6D0--Dpb0/view)
 
-![gif](Develop/images/get-routes3.gif)
+![gif](Develop/images/post-routes.gif)
 
 
 
