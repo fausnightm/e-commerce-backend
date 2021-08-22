@@ -5,18 +5,57 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // get all products
 router.get('/', (req, res) => {
+  Product.findAll({
+    attributes: ["id", "product_name", "price", "stock", "category_id"],
+    include: [
+      {
+        model: Category,
+        attributes: ["id", "category_name"],
+      },
+      {
+        model: Tag,
+        attributes: ["id", "tag_name"]
+      },
+    ],
+  }).then(results => {
+    console.log(results)
+    res.json(results);
+  });
   // find all products
   // be sure to include its associated Category and Tag data
 });
 
 // get one product
 router.get('/:id', (req, res) => {
+  Product.findOne({
+    where: {
+      id: req.params.id,
+    },
+    include: [
+      {
+        model: Category,
+        attributes: ["id", "category_name"],
+      },
+      {
+        model: Tag,
+        attributes: ["id", "tag_name"]
+      },
+    ],
+  }).then(results => {
+    console.log(results)
+    res.json(results);
+  });
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
 });
 
 // create new product
 router.post('/', (req, res) => {
+
+  Product.create(req.body).then(product =>{
+    res.json(product);
+    console.log(product);
+  });
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -49,6 +88,7 @@ router.post('/', (req, res) => {
 
 // update product
 router.put('/:id', (req, res) => {
+  
   // update product data
   Product.update(req.body, {
     where: {
@@ -90,6 +130,13 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
+  Product.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then(product => {
+    res.json(product);
+  });
   // delete one product by its `id` value
 });
 
